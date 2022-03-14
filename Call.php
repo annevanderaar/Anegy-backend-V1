@@ -1,6 +1,8 @@
 <?php
 require_once("Config.php");
 
+header('Access-Control-Allow-Origin: *');
+
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $ch = curl_init($API_URL);
     curl_setopt($ch, CURLOPT_HEADER, 0);
