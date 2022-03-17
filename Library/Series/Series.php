@@ -1,10 +1,10 @@
 <?php
-require_once("Config.php");
+require_once("../Config.php");
 
 header('Access-Control-Allow-Origin: *');
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    $ch = curl_init($API_URL_MOVIES);
+    $ch = curl_init($API_URL_SERIES);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

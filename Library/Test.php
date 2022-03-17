@@ -1,5 +1,5 @@
 <?php
-require_once("DB/dbh.php");
+require_once("./DB/dbh.php");
 
 $db = new dbconnection();
 $sql = "SELECT * FROM users";
