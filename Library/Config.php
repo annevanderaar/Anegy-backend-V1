@@ -14,6 +14,7 @@ $API_URL_SERIES_AIRING = $BASE_URL . "/tv/airing_today?" . $API_KEY;
 $API_URL_SERIES_ON_AIR = $BASE_URL . "/tv/on_the_air?" . $API_KEY;
 $API_URL_SERIES_TOP_RATED = $BASE_URL . "/tv/top_rated?" . $API_KEY;
 
+$SEARCH_URL = $BASE_URL . "/search/multi?" . $API_KEY;
 $SEARCH_URL_MOVIES = $BASE_URL . "/search/movie?" . $API_KEY;
 $SEARCH_URL_SERIES = $BASE_URL . "/search/tv?" . $API_KEY;
 $SEARCH_URL_PERSON = $BASE_URL . "/search/person?" . $API_KEY;
