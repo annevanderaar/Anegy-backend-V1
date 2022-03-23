@@ -4,7 +4,8 @@ require_once("Config.php");
 header('Access-Control-Allow-Origin: *');
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    $ch = curl_init($SEARCH_URL);
+    $d = json_decode(file_get_contents('php://input'));
+    $ch = curl_init($SEARCH_URL . 'zoekopdracht');
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
