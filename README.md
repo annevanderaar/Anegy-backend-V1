@@ -1,7 +1,5 @@
 # Anegy Backend
 
-![Custom badge](https://img.shields.io/badge/Version-0.1.0-blue) ![Custom badge](https://img.shields.io/badge/Checked%20By-annevanderaar-red)
-
 With Anegy you can discover all the movies and series. It makes use of the [TMDB API](https://developers.themoviedb.org/).
 
 ## Features
