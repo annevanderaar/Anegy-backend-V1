@@ -7,7 +7,9 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $query = json_decode(file_get_contents('php://input'), true);
-    $search = $query['query'];
+    $query = $query['query'];
+    $search =  str_replace(' ', '%20', $query);
+
     $ch = curl_init($SEARCH_URL . $search);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
@@ -19,5 +21,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     curl_close($ch);
 
     echo $data;
-    // return $data;
+
 }
