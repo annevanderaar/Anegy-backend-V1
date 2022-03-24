@@ -2,6 +2,8 @@
 require_once("../Config.php");
 
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $ch = curl_init($API_URL_SERIES_DISCOVER_POPULAR);

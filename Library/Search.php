@@ -2,10 +2,13 @@
 require_once("Config.php");
 
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
-if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    $d = json_decode(file_get_contents('php://input'));
-    $ch = curl_init($SEARCH_URL . 'zoekopdracht');
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $query = json_decode(file_get_contents('php://input'), true);
+    $search = $query['query'];
+    $ch = curl_init($SEARCH_URL . $search);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
