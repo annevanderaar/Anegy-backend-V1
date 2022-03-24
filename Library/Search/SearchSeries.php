@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $query = $query['query'];
     $search =  str_replace(' ', '%20', $query);
 
-    $ch = curl_init($SEARCH_URL . $search);
+    $ch = curl_init($SEARCH_URL_SERIES . $search);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
