@@ -1,10 +1,6 @@
 <?php
 require_once("../Config.php");
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $query = json_decode(file_get_contents('php://input'), true);
     $url = $query['url'];
