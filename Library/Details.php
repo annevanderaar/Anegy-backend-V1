@@ -4,9 +4,8 @@ require_once("Config.php");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
     $url = $data['url'];
-    $id = $data['id'];
 
-    $ch = curl_init($BASE_URL . $url . $id . '?' . $API_KEY);
+    $ch = curl_init($BASE_URL . $url . '?' . $API_KEY);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
