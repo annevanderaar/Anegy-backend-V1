@@ -5,7 +5,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $query = json_decode(file_get_contents('php://input'), true);
     $url = $query['url'];
     $page = $query['page'];
-    //$query = $query['query'];
     $search =  str_replace(' ', '%20', $query['query']);
 
     $ch = curl_init($BASE_URL . $url . $API_KEY . "&query=" . $search . "&page=" . $page);
