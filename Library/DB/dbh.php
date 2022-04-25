@@ -11,5 +11,23 @@ class dbconnection extends PDO {
     $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
   }
 
+  public function getUsers() {
+    $dbconnect = new dbconnection();
+    $sql = "SELECT * FROM users";
+    $query = $dbconnect->prepare($sql);
+    $query->execute();
+    $output = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $output;
+  }
+
+  public function getUser($id) {
+    $dbconnect = new dbconnection();
+    $sql = "SELECT ID, naam, email FROM users WHERE ID=:id";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":id", $id);
+    $query->execute();
+    $output = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $output;
+  }
 }
 ?>
