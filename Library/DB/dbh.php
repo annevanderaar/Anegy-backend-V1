@@ -22,7 +22,7 @@ class dbconnection extends PDO {
 
   public function getUser($id) {
     $dbconnect = new dbconnection();
-    $sql = "SELECT ID, naam, email FROM users WHERE ID=:id";
+    $sql = "SELECT ID, name, email FROM users WHERE ID=:id";
     $query = $dbconnect->prepare($sql);
     $query->bindParam(":id", $id);
     $query->execute();

@@ -4,7 +4,7 @@ require_once("Config.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") { 
     $db = new dbconnection();
-    $id = 2;
+    $id = 1;
     $output = $db->getUser($id);
     // $output = json_decode($output);
     $output = json_encode($output);
