@@ -6,7 +6,7 @@ class dbconnection extends PDO {
   private $dBName = "movies-series";
 
   public function __construct() {
-    parent::__construct("mysql:host=".$this->servername.";dbname=".$this->dBName."; charset=utf8", $this->dBUsername, $this->dBPassword);
+    parent::__construct("mysql:host=" . $this->servername . ";dbname=" . $this->dBName . "; charset=utf8", $this->dBUsername, $this->dBPassword);
     $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
   }
@@ -29,5 +29,27 @@ class dbconnection extends PDO {
     $output = $query->fetchAll(PDO::FETCH_ASSOC);
     return $output;
   }
+
+  public function addUser($name, $email, $password) {
+    $dbconnect = new dbconnection();
+    $sql = "INSERT INTO users ( name, email, password) VALUES (:name, :email, :password)";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":name", $name);
+    $query->bindParam(":email", $email);
+    $query->bindParam(":password", $password);
+    $query->execute();
+    $output = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $output;
+  }
+
+  public function login($email, $password) {
+    $dbconnect = new dbconnection();
+    $sql = "SELECT ID, email, password FROM users WHERE ID=:id";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":email", $email);
+    $query->bindParam(":password", $password);
+    $query->execute();
+    $output = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $output;
+  }
 }
-?>
