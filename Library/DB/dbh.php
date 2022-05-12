@@ -22,7 +22,7 @@ class dbconnection extends PDO {
 
   public function getUser($id) {
     $dbconnect = new dbconnection();
-    $sql = "SELECT ID, name, email FROM users WHERE ID=:id";
+    $sql = "SELECT ID, name, email FROM users WHERE ID = :id";
     $query = $dbconnect->prepare($sql);
     $query->bindParam(":id", $id);
     $query->execute();
@@ -37,19 +37,35 @@ class dbconnection extends PDO {
     $query->bindParam(":name", $name);
     $query->bindParam(":email", $email);
     $query->bindParam(":password", $password);
-    $query->execute();
-    $output = $query->fetchAll(PDO::FETCH_ASSOC);
-    return $output;
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    if ($query->execute()) {
+      $output = $query->fetchAll(PDO::FETCH_ASSOC);
+      return $output;
+    } else {
+      echo "error";
+    }
   }
 
-  public function login($email, $password) {
+  public function getLogin($email, $password) {
     $dbconnect = new dbconnection();
-    $sql = "SELECT ID, email, password FROM users WHERE ID=:id";
+    $sql = "SELECT ID, email, password FROM users WHERE email = :email";
     $query = $dbconnect->prepare($sql);
     $query->bindParam(":email", $email);
-    $query->bindParam(":password", $password);
-    $query->execute();
-    $output = $query->fetchAll(PDO::FETCH_ASSOC);
-    return $output;
+    if ($query->execute()) {
+      if ($query->rowCount() == 1) {
+        if ($row = $query->fetch()) {
+          //$id = $row["id"];
+          $email = $row["email"];
+          $hashed_password = $row["password"];
+          if (password_verify($password, $hashed_password)) {
+            // $_SESSION["loggedin"] = true;
+            // $_SESSION["id"] = $id;
+            // $_SESSION["email"] = $email;
+          } else {
+            echo "invalid";
+          }
+        }
+      }
+    }
   }
 }

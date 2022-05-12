@@ -5,13 +5,23 @@ require_once("Config.php");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $db = new dbconnection();
     $data = json_decode(file_get_contents('php://input'), true);
-    $email = $data['email'];
-    $password = $data['password'];
+    $email = trim($data['email']);
+    $password = trim($data['password']);
     if (isset($data['name'])) {
         $name = $data['name'];
-        $db->addUser($name, $email, $password);
+        $output = $db->addUser($name, $email, $password);
+        if ($output == "error") {
+            echo "error";
+        } else {
+            echo "succes";
+        }
     } else {
-        $db->login($email, $password);
+        $output = $db->getLogin($email, $password);
+        if ($output == "invalid") {
+            echo "invalid";
+        } else {
+            echo "succes";
+        }
     }
 } else if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $db = new dbconnection();
