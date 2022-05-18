@@ -7,20 +7,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
     $email = trim($data['email']);
     $password = trim($data['password']);
-    if (isset($data['name'])) {
-        $name = $data['name'];
-        $output = $db->addUser($name, $email, $password);
+    if (isset($data['firstname'])) {
+        $firstname = $data['firstname'];
+        $lastname = $data['lastname'];
+        $output = $db->addUser($firstname, $lastname, $email, $password);
         if ($output == "error") {
             echo "error";
         } else {
-            echo "succes";
+            echo $output;
         }
     } else {
         $output = $db->getLogin($email, $password);
         if ($output == "invalid") {
             echo "invalid";
         } else {
-            echo "succes";
+            echo $output;
         }
     }
 } else if ($_SERVER["REQUEST_METHOD"] === "GET") {

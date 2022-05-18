@@ -1,6 +1,7 @@
 CREATE TABLE `users` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`firstname` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`lastname` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
 	`email` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
 	`password` VARCHAR(132) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
 	`created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,

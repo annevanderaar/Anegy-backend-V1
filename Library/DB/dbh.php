@@ -22,7 +22,7 @@ class dbconnection extends PDO {
 
   public function getUser($id) {
     $dbconnect = new dbconnection();
-    $sql = "SELECT ID, name, email FROM users WHERE ID = :id";
+    $sql = "SELECT ID, firstname, lastname, email FROM users WHERE ID = :id";
     $query = $dbconnect->prepare($sql);
     $query->bindParam(":id", $id);
     $query->execute();
@@ -30,17 +30,18 @@ class dbconnection extends PDO {
     return $output;
   }
 
-  public function addUser($name, $email, $password) {
+  public function addUser($firstname, $lastname, $email, $password) {
     $dbconnect = new dbconnection();
-    $sql = "INSERT INTO users ( name, email, password) VALUES (:name, :email, :password)";
+    $sql = "INSERT INTO users ( firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
     $query = $dbconnect->prepare($sql);
-    $query->bindParam(":name", $name);
+    $query->bindParam(":firstname", $firstname);
+    $query->bindParam(":lastname", $lastname);
     $query->bindParam(":email", $email);
     $query->bindParam(":password", $password);
     $password = password_hash($password, PASSWORD_DEFAULT);
     if ($query->execute()) {
-      $output = $query->fetchAll(PDO::FETCH_ASSOC);
-      return $output;
+      // $output = $query->fetchAll(PDO::FETCH_ASSOC);
+      // return $output;
     } else {
       echo "error";
     }
@@ -54,18 +55,29 @@ class dbconnection extends PDO {
     if ($query->execute()) {
       if ($query->rowCount() == 1) {
         if ($row = $query->fetch()) {
-          //$id = $row["id"];
+          $id = $row["ID"];
           $email = $row["email"];
           $hashed_password = $row["password"];
           if (password_verify($password, $hashed_password)) {
             // $_SESSION["loggedin"] = true;
             // $_SESSION["id"] = $id;
             // $_SESSION["email"] = $email;
+            return $id;
           } else {
-            echo "invalid";
+            return "invalid";
           }
         }
       }
     }
+  }
+
+  public function delete($id) {
+    $dbconnect = new dbconnection();
+    $sql = "DELETE FROM users WHERE ID = :id";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":id", $id);
+    $query->execute();
+    $output = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $output;
   }
 }
