@@ -68,6 +68,15 @@ class dbconnection extends PDO {
     }
   }
 
+  public function getFavorites() {
+    $dbconnect = new dbconnection();
+    $sql = "SELECT * FROM favorites";
+    $query = $dbconnect->prepare($sql);
+    $query->execute();
+    $output = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $output;
+  }
+
   public function delete($id) {
     $dbconnect = new dbconnection();
     $sql = "DELETE FROM users WHERE ID = :id";
