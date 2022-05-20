@@ -40,8 +40,8 @@ class dbconnection extends PDO {
     $query->bindParam(":password", $password);
     $password = password_hash($password, PASSWORD_DEFAULT);
     if ($query->execute()) {
-      // $output = $query->fetchAll(PDO::FETCH_ASSOC);
-      // return $output;
+      $id = $dbconnect->lastInsertId();
+      return $id;
     } else {
       echo "error";
     }
@@ -59,9 +59,6 @@ class dbconnection extends PDO {
           $email = $row["email"];
           $hashed_password = $row["password"];
           if (password_verify($password, $hashed_password)) {
-            // $_SESSION["loggedin"] = true;
-            // $_SESSION["id"] = $id;
-            // $_SESSION["email"] = $email;
             return $id;
           } else {
             return "invalid";
