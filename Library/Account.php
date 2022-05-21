@@ -5,13 +5,13 @@ require_once("Config.php");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $db = new dbconnection();
     $data = json_decode(file_get_contents('php://input'), true);
-    if (isset($data['id'])) {
+    if ($data['param'] == "account") {
         $id = $data['id'];
         $output = $db->getUser($id);
         // $output = json_decode($output);
         $output = json_encode($output);
         echo ($output);
-    } else {
+    } else if ($data['param'] == "create" || $data['param'] == "login") {
         $email = trim($data['email']);
         $password = trim($data['password']);
         if (isset($data['firstname'])) {
@@ -31,5 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 echo $output;
             }
         }
+    } else if ($data['param'] == "fave") {
+        $id = $data['id'];
+        $output = $db->getFavorites($id);
+        $output = json_encode($output);
+        echo ($output);
     }
 }
