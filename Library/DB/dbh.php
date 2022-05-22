@@ -68,6 +68,20 @@ class dbconnection extends PDO {
     }
   }
 
+  public function addFavorite($userid, $msid, $type) {
+    $dbconnect = new dbconnection();
+    $sql = "INSERT INTO favorites ( user_id, ms_id, type) VALUES (:user_id, :ms_id, :type)";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":user_id", $userid);
+    $query->bindParam(":ms_id", $msid);
+    $query->bindParam(":type", $type);
+    if ($query->execute()) {
+      echo "succes";
+    } else {
+      echo "error";
+    }
+  }
+
   public function getFavorites($id) {
     $dbconnect = new dbconnection();
     $sql = "SELECT * FROM favorites WHERE user_id = :user_id";
@@ -78,9 +92,20 @@ class dbconnection extends PDO {
     return $output;
   }
 
-  public function delete($id) {
+  public function deleteUser($id) {
     $dbconnect = new dbconnection();
     $sql = "DELETE FROM users WHERE ID = :id";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":id", $id);
+    $query->execute();
+    $output = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $output;
+  }
+
+  public function deleteFavorite($id) {
+    //not good yet
+    $dbconnect = new dbconnection();
+    $sql = "DELETE FROM favorites WHERE ID = :id";
     $query = $dbconnect->prepare($sql);
     $query->bindParam(":id", $id);
     $query->execute();

@@ -36,5 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $output = $db->getFavorites($id);
         $output = json_encode($output);
         echo ($output);
+    } else if ($data['param'] == "addFave") {
+        $userid = $data['userid'];
+        $msid = $data['msid'];
+        $type = $data['type'];
+        $output = $db->addFavorite($userid, $msid, $type);
+        echo $output;
     }
 }
