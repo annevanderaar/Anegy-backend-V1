@@ -105,7 +105,7 @@ class dbconnection extends PDO {
   public function checkFavorite($userid, $msid) {
     $dbconnect = new dbconnection();
     //does not work
-    $sql = "SELECT TOP 1 * FROM favorites WHERE user_id = :user_id and ms_id = :ms_id";
+    $sql = "SELECT 1 * FROM favorites WHERE user_id = :user_id and ms_id = :ms_id";
     $query = $dbconnect->prepare($sql);
     $query->bindParam(":user_id", $userid);
     $query->bindParam(":ms_id", $msid);
