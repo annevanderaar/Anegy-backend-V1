@@ -47,6 +47,16 @@ class dbconnection extends PDO {
     }
   }
 
+  public function deleteUser($id) {
+    $dbconnect = new dbconnection();
+    $sql = "DELETE FROM users WHERE ID = :id";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":id", $id);
+    $query->execute();
+    $output = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $output;
+  }
+
   public function getLogin($email, $password) {
     $dbconnect = new dbconnection();
     $sql = "SELECT ID, email, password FROM users WHERE email = :email";
@@ -92,24 +102,28 @@ class dbconnection extends PDO {
     return $output;
   }
 
-  public function deleteUser($id) {
+  public function checkFavorite($userid, $msid) {
     $dbconnect = new dbconnection();
-    $sql = "DELETE FROM users WHERE ID = :id";
+    //does not work
+    $sql = "SELECT TOP 1 * FROM favorites WHERE user_id = :user_id and ms_id = :ms_id";
     $query = $dbconnect->prepare($sql);
-    $query->bindParam(":id", $id);
+    $query->bindParam(":user_id", $userid);
+    $query->bindParam(":ms_id", $msid);
     $query->execute();
     $output = $query->fetchAll(PDO::FETCH_ASSOC);
     return $output;
   }
 
-  public function deleteFavorite($id) {
-    //not good yet
+  public function deleteFavorite($userid, $msid) {
     $dbconnect = new dbconnection();
-    $sql = "DELETE FROM favorites WHERE ID = :id";
+    $sql = "DELETE FROM favorites WHERE user_id = :user_id and ms_id = :ms_id";
     $query = $dbconnect->prepare($sql);
-    $query->bindParam(":id", $id);
-    $query->execute();
-    $output = $query->fetchAll(PDO::FETCH_ASSOC);
-    return $output;
+    $query->bindParam(":user_id", $userid);
+    $query->bindParam(":ms_id", $msid);
+    if ($query->execute()) {
+      echo "succes";
+    } else {
+      echo "error";
+    }
   }
 }

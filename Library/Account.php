@@ -42,5 +42,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $type = $data['type'];
         $output = $db->addFavorite($userid, $msid, $type);
         echo $output;
+    } else if ($data['param'] == "deleteFave") {
+        $userid = $data['userid'];
+        $msid = $data['msid'];
+        $output = $db->deleteFavorite($userid, $msid);
+        echo $output;
+    } else if ($data['param'] == "checkFave") {
+        $userid = $data['userid'];
+        $msid = $data['msid'];
+        $output = $db->checkFavorite($userid, $msid);
+        echo $output;
     }
 }
