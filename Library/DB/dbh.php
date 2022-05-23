@@ -126,4 +126,41 @@ class dbconnection extends PDO {
       echo "error";
     }
   }
+
+  public function addWatched($userid, $msid, $type) {
+    $dbconnect = new dbconnection();
+    $sql = "INSERT INTO watched ( user_id, ms_id, type) VALUES (:user_id, :ms_id, :type)";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":user_id", $userid);
+    $query->bindParam(":ms_id", $msid);
+    $query->bindParam(":type", $type);
+    if ($query->execute()) {
+      echo "succes";
+    } else {
+      echo "error";
+    }
+  }
+
+  public function getWatched($id) {
+    $dbconnect = new dbconnection();
+    $sql = "SELECT * FROM watched WHERE user_id = :user_id";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":user_id", $id);
+    $query->execute();
+    $output = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $output;
+  }
+
+  public function deleteWatched($userid, $msid) {
+    $dbconnect = new dbconnection();
+    $sql = "DELETE FROM watched WHERE user_id = :user_id and ms_id = :ms_id";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":user_id", $userid);
+    $query->bindParam(":ms_id", $msid);
+    if ($query->execute()) {
+      echo "succes";
+    } else {
+      echo "error";
+    }
+  }
 }

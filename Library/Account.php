@@ -52,5 +52,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $msid = $data['msid'];
         $output = $db->checkFavorite($userid, $msid);
         echo $output;
+    } else if ($data['param'] == "watched") {
+        $id = $data['id'];
+        $output = $db->getWatched($id);
+        $output = json_encode($output);
+        echo ($output);
+    } else if ($data['param'] == "addWatched") {
+        $userid = $data['userid'];
+        $msid = $data['msid'];
+        $type = $data['type'];
+        $output = $db->addWatched($userid, $msid, $type);
+        echo $output;
+    } else if ($data['param'] == "deleteWatched") {
+        $userid = $data['userid'];
+        $msid = $data['msid'];
+        $output = $db->deleteWatched($userid, $msid);
+        echo $output;
     }
 }
