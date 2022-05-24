@@ -13,6 +13,7 @@ CREATE TABLE `favorites` (
 	`user_id` INT(11) NULL DEFAULT NULL,
 	`ms_id` INT(11) NULL DEFAULT NULL,
 	`type` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`fave` VARCHAR(50) NULL DEFAULT 'true' COLLATE 'latin1_swedish_ci',
 	PRIMARY KEY (`id`) USING BTREE
 )
 
@@ -21,6 +22,6 @@ CREATE TABLE `watched` (
 	`user_id` INT(11) NULL DEFAULT NULL,
 	`ms_id` INT(11) NULL DEFAULT NULL,
 	`type` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
-	`watched` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`watched` VARCHAR(50) NULL DEFAULT 'true' COLLATE 'latin1_swedish_ci',
 	PRIMARY KEY (`id`) USING BTREE
 )
