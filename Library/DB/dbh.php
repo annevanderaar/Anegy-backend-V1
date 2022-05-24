@@ -59,9 +59,11 @@ class dbconnection extends PDO {
     $sql = "DELETE FROM users WHERE ID = :id";
     $query = $dbconnect->prepare($sql);
     $query->bindParam(":id", $id);
-    $query->execute();
-    $output = $query->fetchAll(PDO::FETCH_ASSOC);
-    return $output;
+    if ($query->execute()) {
+      echo "succes";
+    } else {
+      echo "error";
+    }
   }
 
   public function getLogin($email, $password) {

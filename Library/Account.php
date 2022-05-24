@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($data['param'] == "account") {
         $id = $data['id'];
         $output = $db->getUser($id);
-        // $output = json_decode($output);
         $output = json_encode($output);
         echo ($output);
     } else if ($data['param'] == "create" || $data['param'] == "login") {
@@ -27,6 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $output = $db->getLogin($email, $password);
             if ($output == "invalid") {
                 echo "invalid";
+            } else if ($output == "") {
+                echo "exist";
             } else {
                 echo $output;
             }
@@ -62,6 +63,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $userid = $data['userid'];
         $msid = $data['msid'];
         $output = $db->deleteWatched($userid, $msid);
+        echo $output;
+    } else if ($data['param'] == "deleteUser") {
+        $id = $data['id'];
+        $output = $db->deleteUser($id);
         echo $output;
     }
 }
