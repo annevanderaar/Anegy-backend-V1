@@ -47,11 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $msid = $data['msid'];
         $output = $db->deleteFavorite($userid, $msid);
         echo $output;
-    } else if ($data['param'] == "checkFave") {
-        $userid = $data['userid'];
-        $msid = $data['msid'];
-        $output = $db->checkFavorite($userid, $msid);
-        echo $output;
     } else if ($data['param'] == "watched") {
         $id = $data['id'];
         $output = $db->getWatched($id);

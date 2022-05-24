@@ -32,18 +32,25 @@ class dbconnection extends PDO {
 
   public function addUser($firstname, $lastname, $email, $password) {
     $dbconnect = new dbconnection();
-    $sql = "INSERT INTO users ( firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
-    $query = $dbconnect->prepare($sql);
-    $query->bindParam(":firstname", $firstname);
-    $query->bindParam(":lastname", $lastname);
-    $query->bindParam(":email", $email);
-    $query->bindParam(":password", $password);
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    if ($query->execute()) {
-      $id = $dbconnect->lastInsertId();
-      return $id;
+    $check = $dbconnect->prepare("SELECT 1 FROM `users` WHERE `email` = ?");
+    $check->execute([$email]);
+    $found = $check->fetchColumn();
+    if ($found) {
+      echo "emailUse";
     } else {
-      echo "error";
+      $sql = "INSERT INTO users ( firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
+      $query = $dbconnect->prepare($sql);
+      $query->bindParam(":firstname", $firstname);
+      $query->bindParam(":lastname", $lastname);
+      $query->bindParam(":email", $email);
+      $query->bindParam(":password", $password);
+      $password = password_hash($password, PASSWORD_DEFAULT);
+      if ($query->execute()) {
+        $id = $dbconnect->lastInsertId();
+        return $id;
+      } else {
+        echo "error";
+      }
     }
   }
 
@@ -97,18 +104,6 @@ class dbconnection extends PDO {
     $sql = "SELECT * FROM favorites WHERE user_id = :user_id";
     $query = $dbconnect->prepare($sql);
     $query->bindParam(":user_id", $id);
-    $query->execute();
-    $output = $query->fetchAll(PDO::FETCH_ASSOC);
-    return $output;
-  }
-
-  public function checkFavorite($userid, $msid) {
-    $dbconnect = new dbconnection();
-    //does not work
-    $sql = "SELECT 1 * FROM favorites WHERE user_id = :user_id and ms_id = :ms_id";
-    $query = $dbconnect->prepare($sql);
-    $query->bindParam(":user_id", $userid);
-    $query->bindParam(":ms_id", $msid);
     $query->execute();
     $output = $query->fetchAll(PDO::FETCH_ASSOC);
     return $output;
