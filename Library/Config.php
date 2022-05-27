@@ -1,5 +1,5 @@
 <?php
-$API_KEY = "api_key=bcf92184fb403a95217a5f2d32a0a8df";
+$API_KEY = "";
 $BASE_URL = "https://api.themoviedb.org/3";
 
 header('Access-Control-Allow-Origin: *');
