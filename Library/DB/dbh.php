@@ -3,7 +3,7 @@ class dbconnection extends PDO {
   private $servername = "localhost";
   private $dBUsername = "root";
   private $dBPassword = "";
-  private $dBName = "movies-series";
+  private $dBName = "anegy";
 
   public function __construct() {
     parent::__construct("mysql:host=" . $this->servername . ";dbname=" . $this->dBName . "; charset=utf8", $this->dBUsername, $this->dBPassword);
