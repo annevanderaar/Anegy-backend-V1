@@ -19,7 +19,7 @@ Make an Config.php in Library map.
 
 ```
 <?php
-$API_KEY = "";
+$API_KEY = "api_key=";
 $BASE_URL = "https://api.themoviedb.org/3";
 
 header('Access-Control-Allow-Origin: *');
