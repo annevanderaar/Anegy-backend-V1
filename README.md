@@ -12,3 +12,17 @@ With Anegy you can discover all the movies and series. It makes use of the [TMDB
 - Show movies (with score and with hover that has a short overview).
 - An account feature where you can add your favorites and cross of what you have watched.
 - Detailpage with details of cast and crew, trailers and other videos and information about the movie of serie.
+
+## Config file
+
+Make an Config.php in Library map.
+
+```
+<?php
+$API_KEY = "";
+$BASE_URL = "https://api.themoviedb.org/3";
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+```
