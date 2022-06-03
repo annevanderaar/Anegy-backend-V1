@@ -32,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 echo $output;
             }
         }
+    } else if ($data['param'] == "reset") {
+        //Moet nog gemaakt worden
     } else if ($data['param'] == "fave") {
         $id = $data['id'];
         $output = $db->getFavorites($id);
