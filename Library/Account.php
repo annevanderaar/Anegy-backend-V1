@@ -33,7 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         }
     } else if ($data['param'] == "reset") {
-        //Moet nog gemaakt worden
+        $email = trim($data['email']);
+        $output = $db->getReset($email);
+        if ($output == "") {
+            echo "exist";
+        } else {
+            echo $output;
+        }
     } else if ($data['param'] == "fave") {
         $id = $data['id'];
         $output = $db->getFavorites($id);

@@ -87,6 +87,26 @@ class dbconnection extends PDO {
     }
   }
 
+  public function getReset($email) {
+    $dbconnect = new dbconnection();
+    $sql = "SELECT email FROM users WHERE email = :email";
+    $query = $dbconnect->prepare($sql);
+    $query->bindParam(":email", $email);
+    if ($query->execute()) {
+      if ($query->rowCount() == 1) {
+        if ($row = $query->fetch()) {
+          $email = $row["email"];
+          if ($email == "") {
+            return "";
+          } else {
+            return $email;
+            //Add step 4
+          }
+        }
+      }
+    }
+  }
+
   public function addFavorite($userid, $msid, $type) {
     $dbconnect = new dbconnection();
     $sql = "INSERT INTO favorites ( user_id, ms_id, type) VALUES (:user_id, :ms_id, :type)";
