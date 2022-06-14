@@ -1,4 +1,10 @@
 <?php
+
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+
+// require '../../vendor/autoload.php';
+
 class dbconnection extends PDO {
   private $servername = "localhost";
   private $dBUsername = "root";
@@ -101,6 +107,49 @@ class dbconnection extends PDO {
           } else {
             return $email;
             //Add step 4
+
+            // $token = md5($email) . rand(10, 9999);
+
+            // $expFormat = mktime(
+            //   date("H"),
+            //   date("i"),
+            //   date("s"),
+            //   date("m"),
+            //   date("d") + 1,
+            //   date("Y")
+            // );
+
+            // $expDate = date("Y-m-d H:i:s", $expFormat);
+
+            // //$update = mysqli_query($conn, "UPDATE users set  password='" . $password . "', reset_link_token='" . $token . "' ,exp_date='" . $expDate . "' WHERE email='" . $email . "'");
+
+            // $link = "<a href='www.anegy.nl/reset-form?key=" . $email . "&token=" . $token . "'>Click To Reset password</a>";
+
+            // $mail = new PHPMailer();
+            // $mail->CharSet =  "utf-8";
+            // $mail->IsSMTP();
+            // // enable SMTP authentication
+            // $mail->SMTPAuth = true;
+            // // GMAIL username
+            // $mail->Username = "your_email_id@gmail.com";
+            // // GMAIL password
+            // $mail->Password = "your_gmail_password";
+            // $mail->SMTPSecure = "ssl";
+            // // sets GMAIL as the SMTP server
+            // $mail->Host = "smtp.gmail.com";
+            // // set the SMTP port for the GMAIL server
+            // $mail->Port = "465";
+            // $mail->From = 'info@anegy.nl';
+            // $mail->FromName = 'Anegy';
+            // $mail->AddAddress('reciever_email_id', 'reciever_name');
+            // $mail->Subject  =  'Reset Password';
+            // $mail->IsHTML(true);
+            // $mail->Body    = 'Click On This Link to Reset Password ' . $link . '';
+            // if ($mail->Send()) {
+            //   echo "Check Your Email and Click on the link sent to your email";
+            // } else {
+            //   echo "Mail Error - >" . $mail->ErrorInfo;
+            // }
           }
         }
       }
