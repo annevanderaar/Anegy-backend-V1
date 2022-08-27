@@ -4,6 +4,9 @@
 // use PHPMailer\PHPMailer\Exception;
 
 // require '../../vendor/autoload.php';
+// require_once('phpmail/PHPMailerAutoload.php');
+
+require_once("../Config.php");
 
 class dbconnection extends PDO {
   private $servername = "localhost";
@@ -131,14 +134,14 @@ class dbconnection extends PDO {
             // // enable SMTP authentication
             // $mail->SMTPAuth = true;
             // // GMAIL username
-            // $mail->Username = "your_email_id@gmail.com";
+            // $mail->Username = "info@anegy.nl";
             // // GMAIL password
-            // $mail->Password = "your_gmail_password";
+            // $mail->Password = $EMAIL_PASSWORD;
             // $mail->SMTPSecure = "ssl";
             // // sets GMAIL as the SMTP server
-            // $mail->Host = "smtp.gmail.com";
+            // $mail->Host = $EMAIL_HOST;
             // // set the SMTP port for the GMAIL server
-            // $mail->Port = "465";
+            // $mail->Port = $EMAIL_PORT;
             // $mail->From = 'info@anegy.nl';
             // $mail->FromName = 'Anegy';
             // $mail->AddAddress('reciever_email_id', 'reciever_name');
