@@ -1,4 +1,5 @@
 <?php
+
 require_once("DB/dbh.php");
 require_once("Config.php");
 
@@ -41,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             echo $output;
         }
     } else if ($data['param'] == "reset-form") {
-        $email = trim($data['email']);
-        //$output = $db->getReset($email);
+        $password = trim($data['password']);
+        //$output = $db->getReset($password);
         if ($output == "") {
             echo "exist";
         } else {

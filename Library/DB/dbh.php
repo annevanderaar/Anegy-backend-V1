@@ -1,12 +1,7 @@
 <?php
 
-// use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer;
 // use PHPMailer\PHPMailer\Exception;
-
-// require '../../vendor/autoload.php';
-// require_once('phpmail/PHPMailerAutoload.php');
-
-require_once("../Config.php");
 
 class dbconnection extends PDO {
   private $servername = "localhost";
@@ -18,6 +13,12 @@ class dbconnection extends PDO {
     parent::__construct("mysql:host=" . $this->servername . ";dbname=" . $this->dBName . "; charset=utf8", $this->dBUsername, $this->dBPassword);
     $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+  }
+
+  private function includes() {
+    require __DIR__ . '../config.php';
+    require '../../vendor/autoload.php';
+    require_once('phpmail/PHPMailerAutoload.php');
   }
 
   public function getUsers() {
@@ -98,66 +99,77 @@ class dbconnection extends PDO {
 
   public function getReset($email) {
     $dbconnect = new dbconnection();
-    $sql = "SELECT email FROM users WHERE email = :email";
+    $sql = "SELECT * FROM users WHERE email = :email";
     $query = $dbconnect->prepare($sql);
     $query->bindParam(":email", $email);
     if ($query->execute()) {
       if ($query->rowCount() == 1) {
         if ($row = $query->fetch()) {
           $email = $row["email"];
+          $firstname = $row["firstname"];
+          $lastname = $row["lastname"];
           if ($email == "") {
             return "";
           } else {
-            return $email;
-            //Add step 4
-
-            // $token = md5($email) . rand(10, 9999);
-
-            // $expFormat = mktime(
-            //   date("H"),
-            //   date("i"),
-            //   date("s"),
-            //   date("m"),
-            //   date("d") + 1,
-            //   date("Y")
-            // );
-
-            // $expDate = date("Y-m-d H:i:s", $expFormat);
-
-            // //$update = mysqli_query($conn, "UPDATE users set  password='" . $password . "', reset_link_token='" . $token . "' ,exp_date='" . $expDate . "' WHERE email='" . $email . "'");
-
-            // $link = "<a href='www.anegy.nl/reset-form?key=" . $email . "&token=" . $token . "'>Click To Reset password</a>";
-
-            // $mail = new PHPMailer();
-            // $mail->CharSet =  "utf-8";
-            // $mail->IsSMTP();
-            // // enable SMTP authentication
-            // $mail->SMTPAuth = true;
-            // // GMAIL username
-            // $mail->Username = "info@anegy.nl";
-            // // GMAIL password
-            // $mail->Password = $EMAIL_PASSWORD;
-            // $mail->SMTPSecure = "ssl";
-            // // sets GMAIL as the SMTP server
-            // $mail->Host = $EMAIL_HOST;
-            // // set the SMTP port for the GMAIL server
-            // $mail->Port = $EMAIL_PORT;
-            // $mail->From = 'info@anegy.nl';
-            // $mail->FromName = 'Anegy';
-            // $mail->AddAddress('reciever_email_id', 'reciever_name');
-            // $mail->Subject  =  'Reset Password';
-            // $mail->IsHTML(true);
-            // $mail->Body    = 'Click On This Link to Reset Password ' . $link . '';
-            // if ($mail->Send()) {
-            //   echo "Check Your Email and Click on the link sent to your email";
-            // } else {
-            //   echo "Mail Error - >" . $mail->ErrorInfo;
-            // }
+            $this->sendEmail($email, $firstname, $lastname);
           }
         }
       }
     }
   }
+
+  public function sendEmail($email, $firstname, $lastname) {
+    $dbconnect = new dbconnection();
+    //return $email . $firstname . $lastname;
+    //Add step 4
+    $token = md5($email) . rand(10, 9999);
+    $expFormat = mktime(
+      date("H"),
+      date("i"),
+      date("s"),
+      date("m"),
+      date("d") + 1,
+      date("Y")
+    );
+    $expDate = date("Y-m-d H:i:s", $expFormat);
+    // $update = "UPDATE users SET reset_link_token = $token, exp_date = $expDate WHERE email = $email";
+    $update = "UPDATE users SET firstname = 'test' WHERE email = :email";
+    // $query = $dbconnect->prepare($update);
+    // $query->execute();
+    //   if ($query->execute()) {
+    //     $link = "<a href='www.anegy.nl/reset-form?key=" . $email . "&token=" . $token . "'>Click To Reset password</a>";
+    //     $mail = new PHPMailer();
+    //     $mail->CharSet =  "utf-8";
+    //     $mail->IsSMTP();
+    //     // enable SMTP authentication
+    //     $mail->SMTPAuth = true;
+    //     // GMAIL username
+    //     $mail->Username = "info@anegy.nl";
+    //     // GMAIL password
+    //     $mail->Password = "gmu8tfy!daj7FAW4bmb";
+    //     $mail->SMTPSecure = "ssl";
+    //     // sets GMAIL as the SMTP server
+    //     $mail->Host = "mail.zxcs.nl";
+    //     // set the SMTP port for the GMAIL server
+    //     $mail->Port = "465";
+    //     $mail->From = 'info@anegy.nl';
+    //     $mail->FromName = 'Anegy';
+    //     $mail->AddAddress($email, $firstname . $lastname);
+    //     $mail->Subject  =  'Reset Password';
+    //     $mail->IsHTML(true);
+    //     $mail->Body    = 'Click On This Link to Reset Password ' . $link . '';
+    //     if ($mail->Send()) {
+    //       echo "succes";
+    //     } else {
+    //       echo "Mail Error - >" . $mail->ErrorInfo;
+    //     }
+    //   }
+  }
+
+  // public function doRest($password) {
+  //   $dbconnect = new dbconnection();
+  //   //$sql = "UPDATE users SET password = $password, reset_link_token= NULL, exp_date = NULL WHERE email = $email";
+  // }
 
   public function addFavorite($userid, $msid, $type) {
     $dbconnect = new dbconnection();
